@@ -18,7 +18,9 @@ const NavBar = () => {
         
       </div>
       <div className='flex gap-3'>
+        <Link to="/cart">
         <FiShoppingCart size={30}/>
+        </Link>
         <div className='border border-black p-1 rounded-full'>
         <LuHeart size={20}/>
         </div>

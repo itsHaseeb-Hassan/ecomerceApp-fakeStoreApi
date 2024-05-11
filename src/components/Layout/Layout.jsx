@@ -4,7 +4,7 @@ import TopBar from '../TopBar'
 import NavBar from '../NavBar'
 import LinksBar from '../LinksBar'
 import HeroSection from '../HeroSection'
-const Layout = ({children}) => {
+const Layout = ({children,cart}) => {
   return (
     <div>
         <TopBar />
