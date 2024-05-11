@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProduct } from '../Redux/Slice/productSlice';
+import { Link } from 'react-router-dom';
 
 const Products = ({items}) => {
     const dispatch = useDispatch();
@@ -40,7 +41,7 @@ const Products = ({items}) => {
                
            
                 items ? <div className='text-center'>
-                <button className='bg-white mt-5 border rounded-md text-black w-[200px] h-10 '>View More</button>
+               <Link to="/products"> <button className='bg-white mt-5 border rounded-md text-black w-[200px] h-10 '>View More</button></Link>
                 </div>:""
             }
             </div>
