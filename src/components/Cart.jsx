@@ -5,9 +5,12 @@ import TopBar from './TopBar';
 import NavBar from './NavBar';
 import LinksBar from './LinksBar';
 import Footer from './Footer';
+import { useSelector } from 'react-redux';
 const Cart = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState("Quantity");
+    const cart = useSelector(state => state.product.cart);
+    console.log(cart.type)
 
     const toggleOptions = () => {
         setIsOpen(!isOpen);
@@ -37,7 +40,51 @@ const Cart = () => {
                     </tr>
                 </thead>
                <tbody>
-               <tr>
+                {
+                    cart.map((item,index)=>{
+                        return(
+                            <tr key={index}>
+                            <td className='flex '>
+                             <div className='mx-3 w-[100px] h-[100px] bg-red-400'>
+                                 <img src={item.image}  alt="image"/>
+                             </div>
+                             <div className='flex flex-col'>
+                                 <span>{item.title}</span>
+                                 <span>Price:${item.price}</span>
+                                 <span>Remove</span>
+                             </div>
+                            </td>
+                            <td className=''>
+                                     <div className="relative inline-block text-left">
+                                         <div>
+                                             <div onClick={toggleOptions} className='border rounded-md w-[200px]   py-3  '>
+                                                 <div className='w-full justify-between flex'>
+                                                 <div className='ms-2'>{selectedItem}</div>
+                                                 <div className='mr-2'><IoIosArrowDown  /></div>
+                                                 </div>
+                                             </div>
+                                         </div>
+     
+                                         {isOpen && (
+                                             <div className="origin-top-right top-10 absolute w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                                             <div className="" role="none">
+                                                 <a href="#" onClick={() => handleItemClick("1")} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">1</a>
+                                                 <a href="#" onClick={() => handleItemClick("2")} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">2</a>
+                                                 <a href="#" onClick={() => handleItemClick("3")} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">3</a>
+                                             </div>
+                                         </div>
+                                         )}
+                                     </div>
+                                 </td>
+                            <td className='text-end py-3 px-2'> ${item.price * selectedItem}</td>
+                         </tr>
+                        )
+                    })
+                }
+             
+
+                    {/* something special */}
+                    {/* <tr>
                        <td className='flex '>
                         <div className='mx-3'>
                             <img src="/images/abc.jpg" alt="image"/>
@@ -60,8 +107,8 @@ const Cart = () => {
                                     </div>
 
                                     {isOpen && (
-                                        <div className="origin-top-right fixed z-10  mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none overflow-auto" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                                        <div className="py-1" role="none">
+                                        <div className="origin-top-right top-4 absolute w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                                        <div className="" role="none">
                                             <a href="#" onClick={() => handleItemClick("1")} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">1</a>
                                             <a href="#" onClick={() => handleItemClick("2")} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">2</a>
                                             <a href="#" onClick={() => handleItemClick("3")} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">3</a>
@@ -71,7 +118,7 @@ const Cart = () => {
                                 </div>
                             </td>
                        <td className='text-end py-3 px-2'> $50.00</td>
-                    </tr>
+                    </tr> */}
                </tbody>
             </table>
             </div>

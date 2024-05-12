@@ -3,6 +3,7 @@ import axios from "axios";
 
 const initialState = {
   data: null,
+  cart:[],
   loading: false,
   error: false,
 };
@@ -19,7 +20,11 @@ export const fetchProduct = createAsyncThunk("fetchProduct", async () => {
 const productSlice = createSlice({
   name: "product",
   initialState,
-  reducers: {},
+  reducers: {
+    addItemToCart: (state, action) => {
+      state.cart.push(action.payload);
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchProduct.pending, (state, action) => {
       state.loading = true;
@@ -34,5 +39,5 @@ const productSlice = createSlice({
     });
   },
 });
-
+export const { addItemToCart } = productSlice.actions; 
 export default productSlice.reducer;

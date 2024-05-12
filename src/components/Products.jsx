@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { addItemToCart } from '../Redux/Slice/productSlice';
 import { fetchProduct } from '../Redux/Slice/productSlice';
 import { Link } from 'react-router-dom';
 
@@ -15,7 +16,10 @@ const Products = ({items}) => {
     if (state.product.loading) {
         return <h1>Loading...</h1>;
     }
-
+const handleCart=(item)=>{
+ console.log(item)
+ dispatch(addItemToCart(item))
+}
     // Check if state.product is defined before accessing its properties
     const products = state.product.data || [];
 
@@ -32,7 +36,7 @@ const Products = ({items}) => {
                          {
                             items ? "":
                        
-                        <button className='rounded-md bg-[#F3A20D] h-[40px] w-full mt-2 text-white font-bold'>Add To Cart</button>
+                        <button className='rounded-md bg-[#F3A20D] h-[40px] w-full mt-2 text-white font-bold' onClick={()=>handleCart(item)}>Add To Cart</button>
                     }
                     </div>
                 ))}
