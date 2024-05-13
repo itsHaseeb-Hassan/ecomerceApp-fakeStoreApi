@@ -3,7 +3,6 @@ import axios from "axios";
 
 const initialState = {
   data: null,
-  cart:[],
   loading: false,
   error: false,
 };
@@ -21,9 +20,7 @@ const productSlice = createSlice({
   name: "product",
   initialState,
   reducers: {
-    addItemToCart: (state, action) => {
-      state.cart.push(action.payload);
-    },
+  
   },
   extraReducers: (builder) => {
     builder.addCase(fetchProduct.pending, (state, action) => {
@@ -39,5 +36,4 @@ const productSlice = createSlice({
     });
   },
 });
-export const { addItemToCart } = productSlice.actions; 
 export default productSlice.reducer;
