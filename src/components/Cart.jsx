@@ -5,12 +5,13 @@ import TopBar from './TopBar';
 import NavBar from './NavBar';
 import LinksBar from './LinksBar';
 import Footer from './Footer';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
+import { updateCart } from '../Redux/Slice/CartSlice';
 
 const Cart = () => {
     const [openItems, setOpenItems] = useState({});
     const [selectedItems, setSelectedItems] = useState({});
-
+const dispatch=useDispatch()
     const { cart } = useSelector(state => state.cart);
 
     const toggleOptions = (itemId) => {
@@ -21,8 +22,23 @@ const Cart = () => {
         setSelectedItems({ ...selectedItems, [itemId]: item });
         setOpenItems({ ...openItems, [itemId]: false });
     };
+  
+    const handleRemove=(itemtoRemove)=>{
+        console.log("item remove",itemtoRemove)
+        const updatedCart = cart?.filter(item => item.id !== itemtoRemove);   
+        dispatch(updateCart(updatedCart));
+    }
+  
+    const cartTotal = cart.reduce((total, item, index) => {
+        const quantity = selectedItems[index] || 1;
+        return total + (item.price * quantity);
+    }, 0);
 
-
+    const subtotal=cartTotal;
+    const shippingCost = 45.00;
+    const discount = 45.00;
+    const tax = 45.00;
+    const estimatedTotal = subtotal + shippingCost - discount + tax;
   return (
     <div>
         <TopBar />
@@ -32,8 +48,8 @@ const Cart = () => {
             <MdOutlineShoppingBag  size={30}/>
             <h2 className='text-[20px] font-bold'>MyCart</h2>
          </div>
-         <div className='grid grid-cols-3 gap-5 mx-16'>
-                <div className="overflow-x-auto  col-span-2">
+         <div className='grid grid-cols-3 gap-5 mx-16 '>
+                <div className="overflow-y-hidden overflow-x-auto  col-span-2 pb-28 ">
                     <table className="table-auto  w-full ">
                         <thead>
                             <tr className="bg-red-400 ">
@@ -46,13 +62,13 @@ const Cart = () => {
                             {cart?.map((item, index) => (
                                 <tr key={index}>
                                     <td className='flex '>
-                                        <div className='mx-3 w-[100px] h-[100px] bg-red-400'>
+                                        <div className='mx-3 w-[100px] h-auto '>
                                             <img src={item.image} alt="image" />
                                         </div>
                                         <div className='flex flex-col'>
                                             <span>{item.title}</span>
                                             <span>Price:${item.price}</span>
-                                            <span>Remove</span>
+                                            <span className='text-red-600' onClick={()=>handleRemove(item.id)}>Remove</span>
                                         </div>
                                     </td>
                                     <td className=''>
@@ -67,7 +83,7 @@ const Cart = () => {
                                             </div>
 
                                             {openItems[index] && (
-                                                <div className="origin-top-right top-13 absolute w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                                                <div className="origin-top-right top-13 absolute z-10 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                                                     <div className="" role="none">
                                                         <a href="#" onClick={() => handleItemClick(index, "1")} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">1</a>
                                                         <a href="#" onClick={() => handleItemClick(index, "2")} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">2</a>
@@ -77,33 +93,37 @@ const Cart = () => {
                                             )}
                                         </div>
                                     </td>
-                                    <td className='text-end py-3 px-2'> ${item.price * (selectedItems[index] || 0)}</td>
+                                    <td className='text-end py-3 px-2'> ${item.price * (selectedItems[index] || 1)}</td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
+                    <div className='border-t border-gray-400 justify-between flex mt-4'>
+                        <div></div>
+                        <div>Total:${cartTotal.toFixed(2)}</div>
+                    </div>
                 </div>
             <div className=''>
                 <p className='bg-red-400 py-3 text-white font-bold px-2'>Cart Total</p>
                 <div className='py-5 border-b border-gray-300 flex justify-between px-2 '>
                     <span>SubTotal</span>
-                    <span>$45.00</span>
+                    <span>${cartTotal.toFixed(2)}</span>
                 </div>
                 <div className='py-5 border-b border-gray-300 flex justify-between px-2 '>
                     <span>Shiping Cost</span>
-                    <span>$45.00</span>
+                    <span>${shippingCost}</span>
                 </div>
                 <div className='py-5 border-b border-gray-300 flex justify-between px-2 '>
                     <span>Discount</span>
-                    <span>$45.00</span>
+                    <span>${discount}</span>
                 </div>
                 <div className='py-5 border-b border-gray-300 flex justify-between px-2 '>
                     <span>Tax</span>
-                    <span>$45.00</span>
+                    <span>${tax}</span>
                 </div>
                 <div className='py-5  flex justify-between px-2 '>
                     <span>Estimated Total</span>
-                    <span>$45.00</span>
+                    <span>${estimatedTotal}</span>
                 </div>
                 <button className='w-full rounded-md text-white bg-[#F3A20D] py-4 font-bold'>Proceed To Check Out</button>
             </div>
