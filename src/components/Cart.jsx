@@ -7,8 +7,11 @@ import LinksBar from './LinksBar';
 import Footer from './Footer';
 import { useSelector,useDispatch } from 'react-redux';
 import { updateCart } from '../Redux/Slice/CartSlice';
+import ProceedForm from './ProceedForm';
+import ModalLayout from './Modal/ModalLayout';
 
 const Cart = () => {
+    const [modalOpen, setModalOpen] = useState(false);
     const [openItems, setOpenItems] = useState({});
     const [selectedItems, setSelectedItems] = useState({});
 const dispatch=useDispatch()
@@ -39,8 +42,20 @@ const dispatch=useDispatch()
     const discount = 45.00;
     const tax = 45.00;
     const estimatedTotal = subtotal + shippingCost - discount + tax;
+
+    const handleModal=()=>{
+        setModalOpen(true)
+    }
   return (
     <div>
+         {modalOpen && (
+        <ModalLayout
+          isOpen={modalOpen}
+          onClose={() => setModalOpen(false)}
+          center
+          data={<ProceedForm Total={estimatedTotal} cartLength={cart.length}/>}
+        />
+      )}
         <TopBar />
         <NavBar />
         <LinksBar />
@@ -125,7 +140,9 @@ const dispatch=useDispatch()
                     <span>Estimated Total</span>
                     <span>${estimatedTotal}</span>
                 </div>
-                <button className='w-full rounded-md text-white bg-[#F3A20D] py-4 font-bold'>Proceed To Check Out</button>
+                
+                <button className='w-full rounded-md text-white bg-[#F3A20D] py-4 font-bold' onClick={handleModal}>Proceed To Check Out</button>
+            
             </div>
         
             </div>

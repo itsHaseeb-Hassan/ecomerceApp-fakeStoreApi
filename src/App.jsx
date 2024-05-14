@@ -5,6 +5,7 @@ import Products from './components/Products';
 import About from './components/About';
 import ProductPage from './components/ProductPage';
 import Cart from './components/Cart';
+import ProceedForm from './components/ProceedForm';
 function App() {
   return (
     <>
@@ -13,6 +14,7 @@ function App() {
     <Route path="/about" element={<Layout><About /></Layout>} />
     <Route path="/products" element={<Layout><ProductPage items=""/></Layout>} />
     <Route path="/cart" element={<Cart />} />
+    <Route path='/proceedForm' element={<ProceedForm />}/>
 </Routes>
     </>
   );
