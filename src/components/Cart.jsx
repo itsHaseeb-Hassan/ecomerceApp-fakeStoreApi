@@ -53,7 +53,7 @@ const dispatch=useDispatch()
           isOpen={modalOpen}
           onClose={() => setModalOpen(false)}
           center
-          data={<ProceedForm Total={estimatedTotal} cartLength={cart.length}/>}
+          data={<ProceedForm Total={estimatedTotal} cart={cart} selectedItems={selectedItems}/>}
         />
       )}
         <TopBar />

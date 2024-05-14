@@ -1,0 +1,16 @@
+{
+    "orderDetail":[
+        {
+          "First_Name":"Ali",
+          "last_Name":"Hassan",
+          "address":"p-1406 street no 2 Faizabad",
+          "country":"Pakistan",
+          "city":"Faisalabd",
+          "state":"Punjab",
+          "postal":"38000",
+          "phone_number":"03061747322",
+          "orderSummary":{"orderNumber":"#312243643","items":"2","total":"$65.98"}
+
+        }
+    ]
+}
