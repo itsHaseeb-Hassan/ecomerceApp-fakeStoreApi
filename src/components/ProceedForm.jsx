@@ -6,6 +6,7 @@ import { postData } from '../API/api';
 import { postsData } from '../Redux/Slice/CheckoutSlice';
 
 const ProceedForm = ({ Total, cart, selectedItems }) => {
+  console.log("cart is this", cart)
   const [formData, setFormData] = useState({
     First_Name: "",
     last_Name: "",
@@ -15,36 +16,52 @@ const ProceedForm = ({ Total, cart, selectedItems }) => {
     state: "",
     postal: "",
     phone_number: "",
-
+    orderSummary: {
+      orderNumber: '#' + Math.floor(Math.random() * 1000000),
+      items: cart.length,
+      total: Total,
+    },
+    orderDetails: cart.map((item, index) => ({
+      src: item.image,
+      quantity: selectedItems[index] || 1,
+    })),
   });
+
   const dispatch = useDispatch();
 
-  useEffect(()=>{
-    dispatch(fetchData)
-  },[dispatch])
-  const Checkout = useSelector(state => state);
-  console.log(Checkout)
+  useEffect(() => {
+    dispatch(fetchData);
+  }, [dispatch]);
 
-  const handleChange = (e) => {
+  const Checkout = useSelector(state => state);
+  console.log(Checkout);
+
+  const handleChange = e => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
   };
 
-  let handleProceedToShipping = async(e) => {
+  let handleProceedToShipping = async e => {
     e.preventDefault();
     setFormData({
       First_Name: "",
-      last_Name:"",
+      last_Name: "",
       address: "",
       country: "",
       city: "",
       state: "",
       postal: "",
       phone_number: "",
+      orderSummary: {
+        orderNumber: "",
+        items: "",
+        total: "",
+      },
+      orderDetails: [],
     });
-    const response=await postData(formData)
+    const response = await postData(formData);
     dispatch(postsData(response));
   };
 
@@ -56,7 +73,7 @@ const ProceedForm = ({ Total, cart, selectedItems }) => {
           <div className='flex flex-col' >
             <div className='flex items-center gap-2 my-3'>
               <FromInput type="text" label="First Name" name="First_Name" value={formData.First_Name} placeholder="Enter your First Name" onChange={handleChange} />
-              <FromInput type="text" label="Last Name" name="last_Name"   value={formData.last_Name} placeholder="Enter your Last Name" onChange={handleChange} />
+              <FromInput type="text" label="Last Name" name="last_Name" value={formData.last_Name} placeholder="Enter your Last Name" onChange={handleChange} />
             </div>
             <div className=''>
               <FromInput type="text" label="Address" name="address" value={formData.address} placeholder="Enter your Address" onChange={handleChange} />
@@ -81,37 +98,30 @@ const ProceedForm = ({ Total, cart, selectedItems }) => {
         <div className='col-span-2'>
           <div className=' bg-white shadow-2xl rounded-md p-4 h-fit'>
             <h1 className='font-bold text-md'>Order Summary</h1>
-            <p>#312243643</p>
+            <p>{formData.orderSummary.orderNumber}</p>
             <div className='flex justify-between'>
               <p>Items</p>
-              <p>{cart.length}</p>
+              <p>{formData.orderSummary.items}</p>
             </div>
             <div className='flex justify-between'>
               <p>Total</p>
-              <p>${Total}</p>
+              <p>${formData.orderSummary.total}</p>
             </div>
           </div>
           <div className='bg-white shadow-2xl rounded-md p-4 mt-3 h-fit'>
             <h1 className='font-bold text-md py-3 border-b'>Order Details</h1>
-            {
-              cart.map((item, index) => {
-                const selectedItem = selectedItems[index];
-                return (
-                  <div key={index} className='py-3 flex justify-between items-center'>
-                    <img src={item.image} className='h-10 w-10' alt="image not displayed" />
-                    <p>Quantity:{selectedItem ? selectedItem : 1}</p>
-                  </div>
-                )
-              })
-            }
-            <p>Total:{Total}</p>
+            {formData.orderDetails.map((item, index) => (
+              <div key={index} className='py-3 flex justify-between items-center'>
+                <img src={item.src} className='h-10 w-10' alt="image not displayed" />
+                <p>Quantity: {item.quantity}</p>
+              </div>
+            ))}
+            <p>Total: {formData.orderSummary.total}</p>
           </div>
         </div>
       </div>
-
     </>
-
   )
 }
 
-export default ProceedForm; 
+export default ProceedForm;
