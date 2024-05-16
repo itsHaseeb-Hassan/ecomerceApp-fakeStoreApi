@@ -6,7 +6,7 @@ import About from './components/About';
 import ProductPage from './components/ProductPage';
 import Cart from './components/Cart';
 import ProceedForm from './components/ProceedForm';
-import SideBar from './Admin/components/SIdebar/SideBar';
+import AdminMain from './Admin/AdminMain';
 function App() {
   return (
     <>
@@ -16,7 +16,7 @@ function App() {
     <Route path="/products" element={<Layout><ProductPage items=""/></Layout>} />
     <Route path="/cart" element={<Cart />} />
     <Route path='/proceedForm' element={<ProceedForm />}/>
-    <Route path="/admin" element={<SideBar />} />
+    <Route path="/admin" element={<AdminMain />} />
 </Routes>
     </>
   );
