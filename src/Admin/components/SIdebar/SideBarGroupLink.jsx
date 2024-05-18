@@ -8,6 +8,7 @@ const SideBarGroupLink = () => {
   const links = [
     { title: 'Dashboard', url: '/dashboard' },
     { title: 'Admin', url: '/admin' },
+    { title: 'Order', url: '/order' },
     { 
       title: 'Product', 
       url: '/product',

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import FromInput from './Input/FromInput';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchData } from '../API/api';
 import { postData } from '../API/api';
 import { postsData } from '../Redux/Slice/CheckoutSlice';
 
@@ -28,10 +27,6 @@ const ProceedForm = ({ Total, cart, selectedItems }) => {
   });
 
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchData);
-  }, [dispatch]);
 
   const Checkout = useSelector(state => state);
   console.log(Checkout);
