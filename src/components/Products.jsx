@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchProduct } from '../Redux/Slice/productSlice';
+import { fetchProduct } from '../API/api';
+import { getProduct } from '../Redux/Slice/productSlice';
 import { Link } from 'react-router-dom';
 import { addItemToCart } from '../Redux/Slice/CartSlice';
 
@@ -10,13 +11,12 @@ const Products = ({items}) => {
     console.log("product state is",productState)
     
     useEffect(() => {
-        dispatch(fetchProduct());
+        let fetch= async()=>{
+            const response = await fetchProduct();
+            dispatch(getProduct(response))
+        };
+        fetch();
     }, []);
-
-    const state = useSelector(state => state);
-    if (state.product.loading) {
-        return <h1>Loading...</h1>;
-    }
     const handleCart = (item) => {
         console.log(item);
         dispatch(addItemToCart(item))

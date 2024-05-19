@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import FromInput from './Input/FromInput';
 import { useSelector, useDispatch } from 'react-redux';
 import { postData } from '../API/api';
 import { postsData } from '../Redux/Slice/CheckoutSlice';
+import { resetCart } from '../Redux/Slice/CartSlice';
 
 const ProceedForm = ({ Total, cart, selectedItems }) => {
   console.log("cart is this", cart)
@@ -37,7 +38,6 @@ const ProceedForm = ({ Total, cart, selectedItems }) => {
       [e.target.name]: e.target.value
     });
   };
-
   let handleProceedToShipping = async e => {
     e.preventDefault();
     setFormData({
@@ -58,6 +58,7 @@ const ProceedForm = ({ Total, cart, selectedItems }) => {
     });
     const response = await postData(formData);
     dispatch(postsData(response));
+    dispatch(resetCart())
   };
 
   return (

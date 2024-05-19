@@ -6,7 +6,7 @@ import NavBar from './NavBar';
 import LinksBar from './LinksBar';
 import Footer from './Footer';
 import { useSelector,useDispatch } from 'react-redux';
-import { updateCart } from '../Redux/Slice/CartSlice';
+import { deleteItemFromCart } from '../Redux/Slice/CartSlice';
 import ProceedForm from './ProceedForm';
 import ModalLayout from './Modal/ModalLayout';
 
@@ -29,7 +29,7 @@ const dispatch=useDispatch()
     const handleRemove=(itemtoRemove)=>{
         console.log("item remove",itemtoRemove)
         const updatedCart = cart?.filter(item => item.id !== itemtoRemove);   
-        dispatch(updateCart(updatedCart));
+        dispatch(deleteItemFromCart(updatedCart));
     }
   
     const cartTotal = cart.reduce((total, item, index) => {
@@ -141,7 +141,7 @@ const dispatch=useDispatch()
                     <span>${estimatedTotal}</span>
                 </div>
                 
-                <button className='w-full rounded-md text-white bg-[#F3A20D] py-4 font-bold' onClick={handleModal}>Proceed To Check Out</button>
+                <button className='w-full rounded-md text-white bg-[#F3A20D] py-4 font-bold' onClick={cart.length > 0 ? handleModal : null}>Proceed To Check Out</button>
             
             </div>
         
