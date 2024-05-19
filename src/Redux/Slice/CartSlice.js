@@ -14,7 +14,7 @@ const cartSlice = createSlice({
             console.log("Current cart state before adding:", state.cart);
 
             // Ensure cart is an array
-            if (!Array.isArray(state.cart)) {
+            if (!Array.isArray(state.cart)) { 
                 state.cart = [];
             }
 

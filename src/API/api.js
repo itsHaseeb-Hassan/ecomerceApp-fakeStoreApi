@@ -15,6 +15,17 @@ export const fetchProduct = async () => {
     }
  };
 
+
+ export const postProduct=async (postProduct)=>{
+    try{
+        const response=await axios.post(productUrl, postProduct);
+        return response.data;
+    }
+    catch(error){
+        console.log("Error posting data in product",error);
+        throw error;
+    }
+ }
 export const fetchData = async () => {
    try {
        const response = await axios.get(apiUrl); 

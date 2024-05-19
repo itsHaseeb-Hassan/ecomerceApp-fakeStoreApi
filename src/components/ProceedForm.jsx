@@ -32,13 +32,13 @@ const ProceedForm = ({ Total, cart, selectedItems }) => {
   const Checkout = useSelector(state => state);
   console.log(Checkout);
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
   };
-  let handleProceedToShipping = async e => {
+  let handleProceedToShipping = async (e) => {
     e.preventDefault();
     setFormData({
       First_Name: "",
