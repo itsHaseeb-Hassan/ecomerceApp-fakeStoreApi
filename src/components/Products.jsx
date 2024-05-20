@@ -25,10 +25,10 @@ const Products = ({items}) => {
     const products = productState.data || [];
 
     return (
-        <div className='mx-32'>
+        <div className='mx-10 md:mx-32'>
           <h1 className='my-5 text-center font-bold text-[25px]'>Products</h1>
           <p className='text-center w-[300px] mx-auto mb-4 text-[16px] text-gray-400'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Blanditiis, perferendis.</p>
-            <div className='grid grid-cols-4 gap-8 ms-8'>
+            <div className='grid grid-cols-2 gap-8 ms-8 md:grid-cols-4'>
                 {products.slice(0, items).map((item, index) => (
                     <div className='flex flex-col w-[250px]' key={index}>
                     <div  className='bg-white h-48 md:h-[200px] w-[250px] shadow-2xl'>

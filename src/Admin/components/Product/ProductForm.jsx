@@ -43,7 +43,7 @@ const ProductForm = () => {
     reader.onloadend = () => {
       setFormData({
         ...formData,
-        image: reader.result // Set image source to state
+        image: reader.result 
       });
     };
 
