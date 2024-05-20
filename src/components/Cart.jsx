@@ -63,7 +63,7 @@ const dispatch=useDispatch()
             <MdOutlineShoppingBag  size={30}/>
             <h2 className='text-[20px] font-bold'>MyCart</h2>
          </div>
-         <div className='grid grid-cols-3 gap-5 mx-16 '>
+         <div className='grid grid-cols-1 gap-5 mx-16 md:grid-cols-3'>
                 <div className="overflow-y-hidden overflow-x-auto  col-span-2 pb-28 ">
                     <table className="table-auto  w-full ">
                         <thead>
