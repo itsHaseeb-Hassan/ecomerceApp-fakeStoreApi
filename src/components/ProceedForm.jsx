@@ -1,12 +1,12 @@
-import React, {  useState } from 'react';
+import React, { useState } from 'react';
 import FromInput from './Input/FromInput';
 import { useSelector, useDispatch } from 'react-redux';
 import { postData } from '../API/api';
 import { postsData } from '../Redux/Slice/CheckoutSlice';
 import { resetCart } from '../Redux/Slice/CartSlice';
+import { useNavigate } from 'react-router-dom';
 
 const ProceedForm = ({ Total, cart, selectedItems }) => {
-  console.log("cart is this", cart)
   const [formData, setFormData] = useState({
     First_Name: "",
     last_Name: "",
@@ -28,6 +28,7 @@ const ProceedForm = ({ Total, cart, selectedItems }) => {
   });
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const Checkout = useSelector(state => state);
   console.log(Checkout);
@@ -38,40 +39,26 @@ const ProceedForm = ({ Total, cart, selectedItems }) => {
       [e.target.name]: e.target.value
     });
   };
-  let handleProceedToShipping = async (e) => {
+
+  const handleProceedToShipping = async (e) => {
     e.preventDefault();
-    setFormData({
-      First_Name: "",
-      last_Name: "",
-      address: "",
-      country: "",
-      city: "",
-      state: "",
-      postal: "",
-      phone_number: "",
-      orderSummary: {
-        orderNumber: "",
-        items: "",
-        total: "",
-      },
-      orderDetails: [],
-    });
     const response = await postData(formData);
     dispatch(postsData(response));
-    dispatch(resetCart())
+    dispatch(resetCart());
+    navigate('/dashboard');
   };
 
   return (
     <>
       <h2 className='text-3xl font-bold'>Checkout form</h2>
       <div className="grid grid-cols-5 my-3 gap-5">
-        <div className='  flex items-center  bg-gray-300 p-4 rounded-md col-span-3'>
-          <div className='flex flex-col' >
+        <div className='flex items-center bg-gray-300 p-4 rounded-md col-span-3'>
+          <div className='flex flex-col'>
             <div className='flex items-center gap-2 my-3'>
               <FromInput type="text" label="First Name" name="First_Name" value={formData.First_Name} placeholder="Enter your First Name" onChange={handleChange} />
               <FromInput type="text" label="Last Name" name="last_Name" value={formData.last_Name} placeholder="Enter your Last Name" onChange={handleChange} />
             </div>
-            <div className=''>
+            <div>
               <FromInput type="text" label="Address" name="address" value={formData.address} placeholder="Enter your Address" onChange={handleChange} />
             </div>
             <div className='flex items-center gap-2 my-3'>
@@ -82,17 +69,16 @@ const ProceedForm = ({ Total, cart, selectedItems }) => {
               <FromInput type="text" label="State" name="state" value={formData.state} placeholder="Enter your State" onChange={handleChange} />
               <FromInput type="text" label="Postal Address" name="postal" value={formData.postal} placeholder="Enter your Postal Address" onChange={handleChange} />
             </div>
-            <div className=''>
+            <div>
               <FromInput type="text" label="Phone Number" name="phone_number" value={formData.phone_number} placeholder="Enter your Phone Number" onChange={handleChange} />
             </div>
             <div>
               <button className='w-full rounded-md text-white bg-[#F3A20D] py-4 font-bold my-3' onClick={handleProceedToShipping}>Proceed To Shipping</button>
             </div>
           </div>
-
         </div>
         <div className='col-span-2'>
-          <div className=' bg-white shadow-2xl rounded-md p-4 h-fit'>
+          <div className='bg-white shadow-2xl rounded-md p-4 h-fit'>
             <h1 className='font-bold text-md'>Order Summary</h1>
             <p>{formData.orderSummary.orderNumber}</p>
             <div className='flex justify-between'>

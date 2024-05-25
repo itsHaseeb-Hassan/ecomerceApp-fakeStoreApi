@@ -26,12 +26,12 @@ const MultipleCard = () => {
     ]
   return (
     <>
-    <div className='flex gap-5'>
-        <div className='grid grid-cols-3 gap-3 mt-10 ms-10'>
+    <div className='flex gap-5 mx-10'>
+        <div className='grid grid-cols-3 gap-5  mt-10 '>
             {
                 card.map((item,index)=>{
                return(
-        <div key={index} className={` rounded-md w-[300px] h-[150px]`} style={{backgroundColor:item.color}}>
+        <div key={index} className={` rounded-md w-[200px] h-[150px]`} style={{backgroundColor:item.color}}>
             <div className='flex flex-col p-4'>
                 <span>{item.icon}</span>
             <h1 className='mt-4 font-semibold text-[20px]'>{item.heading}</h1>
