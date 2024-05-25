@@ -1,6 +1,6 @@
 import React from 'react';
 
-const FromInput = ({ name, type, label, placeholder,onChange,value }) => {
+const FromInput = ({ name, type, label, placeholder, onChange, value, required }) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <label htmlFor={name} className="text-md font-bold text-gray-700">{label}</label>
@@ -11,8 +11,8 @@ const FromInput = ({ name, type, label, placeholder,onChange,value }) => {
         name={name}
         value={value}
         className="border border-gray-300 w-full rounded-md px-3 py-3 focus:outline-none focus:ring focus:ring-blue-200"
-     
         placeholder={placeholder}
+        required={required}
       />
     </div>
   );

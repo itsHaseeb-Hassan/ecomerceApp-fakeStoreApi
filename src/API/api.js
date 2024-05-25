@@ -44,3 +44,7 @@ export const postData = async (postData) => {
         throw error;
     }
  };
+ export const deleteData = async (id) => {
+    const response = await axios.delete(`${apiUrl}/${id}`);
+    return response.data;
+  };
