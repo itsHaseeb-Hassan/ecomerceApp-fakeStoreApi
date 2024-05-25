@@ -1,15 +1,12 @@
 import jsonServer from 'json-server';
-import db from '../db.json';
 import dotenv from 'dotenv';
 
 // Load environment variables from .env file
 dotenv.config();
 
 const server = jsonServer.create();
-const router = jsonServer.router(db);
-const middlewares = jsonServer.defaults();
+const router = jsonServer.router('../db.json');
 
-server.use(middlewares);
 server.use(router);
 
 // Use PORT from environment variables or default to 3000
