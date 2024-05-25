@@ -10,6 +10,7 @@ const LinksBar = () => {
               <Link to="/" className="text-black px-3 py-2 rounded-md text-sm font-medium">Home</Link>
               <Link to="/about" className="text-black px-3 py-2 rounded-md text-sm font-medium">About</Link>
               <Link to="/products" className="text-black px-3 py-2 rounded-md text-sm font-medium">Products</Link>
+              <Link to="/dashboard" className="text-black px-3 py-2 rounded-md text-sm font-medium">Dashboard</Link>
             </div>
           </div>
         </div>

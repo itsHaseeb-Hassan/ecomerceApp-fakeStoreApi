@@ -1,28 +1,5 @@
 {
-  "orderDetail": [
-    {
-      "id": "d4b3",
-      "First_Name": "",
-      "last_Name": "",
-      "address": "",
-      "country": "",
-      "city": "",
-      "state": "",
-      "postal": "",
-      "phone_number": "",
-      "orderSummary": {
-        "orderNumber": "#350357",
-        "items": 1,
-        "total": 60.99
-      },
-      "orderDetails": [
-        {
-          "src": "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
-          "quantity": 1
-        }
-      ]
-    }
-  ],
+  "orderDetail": [],
   "login": [
     {
       "user_name": "haseeb",
